@@ -123,15 +123,25 @@ class ReduceDEFCard(SpellCard):
         print(f"{self.name} reduces {unit.name}'s defense by {self.reduce_def_amount}.")
         unit.status_effect(self.reduce_def_amount, "reduce_def")
 
+class ReduceMPCard(SpellCard):
+    def __init__(self, name, effect, cost, reduce_mp_amount):
+        super().__init__(name, cost, effect)
+        self.reduce_mp_amount = reduce_mp_amount
+
+    def play(self, unit):
+        print(f"{self.name} reduces {unit.name}'s defense by {self.reduce_mp_amount}.")
+        unit.status_effect(self.reduce_mp_amount, "reduce_mp")
+
 class DirectCard(SpellCard):
     def __init__(self, name, effect, cost, dmg_amount):
         super().__init__(name, cost, effect)
         self.dmg_amount = dmg_amount
 
     def play(self, unit):
-        return f"{self.name} deals {self.dmg_amount} to {unit.name}."
+        print(f"{self.name} reduces {unit.name}'s HP by {self.dmg_amount}.")
+        unit.status_effect(self.dmg_amount, "reduce_hp")
 
-#Possibly delete Level Up Card since it seems unecessary?
+#Not sure if we still want to keep these cards below
 class LevelUpCard(SpellCard):
     def __init__(self, name, effect, cost, level_up):
         super().__init__(name, cost, effect)
@@ -143,15 +153,17 @@ class LevelUpCard(SpellCard):
         print(f"{self.name} has leveled up {unit.name}.")
 
 class SightCard(SpellCard):
-    def __init__(self, name, effect, cost, exp):
+    def __init__(self, name, effect, cost):
         super().__init__(name, cost, effect)
 
     def play(self):
         print(f"{self.name} has revealed the opponent's deck.")
 
 class NullCard(SpellCard):
-    def __init__(self, name, effect, cost, exp):
+    def __init__(self, name, effect, cost):
         super().__init__(name, cost, effect)
 
+    def play(self):
+        print(f"{self.name} has removed a card from the opponent's deck.")
     def play(self):
         print(f"{self.name} has removed a card from the opponent's deck.")
