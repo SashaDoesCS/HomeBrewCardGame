@@ -27,6 +27,14 @@ class Card:
             self.def_ -= amount
             if self.def_ < 0:
                 self.def_ = 0
+        elif effect_type == "reduce_mp":
+            self.mp -= amount
+            if self.mp < 0:
+                self.mp = 0
+        elif effect_type == "reduce_hp":
+            self.hp -= amount
+            if self.hp < 0:
+                self.hp = 0
 
     def apply_effect(self, other_cards):
         if self.is_disabled:
